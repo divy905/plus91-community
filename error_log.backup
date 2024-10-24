@@ -1,0 +1,4 @@
+[10-Mar-2024 04:46:06 UTC] PHP Deprecated:  Optional parameter $ext declared before required parameter $thumb_path is implicitly treated as a required parameter in /home/katrgfob/dhartimart.in/app/Helpers/CustomHelper.php on line 468
+[10-Mar-2024 04:46:06 UTC] PHP Deprecated:  Optional parameter $width declared before required parameter $thumb_path is implicitly treated as a required parameter in /home/katrgfob/dhartimart.in/app/Helpers/CustomHelper.php on line 468
+[10-Mar-2024 04:46:06 UTC] PHP Deprecated:  Optional parameter $height declared before required parameter $thumb_path is implicitly treated as a required parameter in /home/katrgfob/dhartimart.in/app/Helpers/CustomHelper.php on line 468
+[10-Mar-2024 04:46:06 UTC] PHP Deprecated:  Optional parameter $is_thumb declared before required parameter $thumb_path is implicitly treated as a required parameter in /home/katrgfob/dhartimart.in/app/Helpers/CustomHelper.php on line 468

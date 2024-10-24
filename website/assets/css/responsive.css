@@ -1,0 +1,51 @@
+/* Desktop view */
+@media all and (min-width: 992px) {
+
+    .navbar .has-megamenu {
+        position: static !important;
+    }
+
+    .navbar .megamenu {
+        left: 0;
+        right: 0;
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+@media(max-width:420px) {}
+
+/* Mobile View */
+@media (max-width:620px) { 
+    .hero {
+        height: auto;
+    }
+
+    .welcome-intro h1 {
+        font-size: 23px;
+    }
+
+    .welcome-intro ul li p {
+        font-size: 14px;
+    }
+  
+    .footer-bg {
+        height: auto; 
+    }
+ 
+    .kk::-webkit-scrollbar { 
+      width: 0;
+    } 
+    .free-quiz-heading{
+        font-size: 12px;
+    }
+
+}
+
+@media (max-width:375px) {}
+
+@media (max-width:992px) {
+    .hero {
+        height: auto;
+    }
+}

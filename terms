@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style></style>
+  <body>
+    <div class="p-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="text-center">Terms and Conditions for SSJOS App</h3>
+            <p class="mt-3">
+              Welcome to SSJOS, a mobile application designed to facilitate
+              internal connections and communications among SSJOS members. By
+              using the SSJOS app, you agree to comply with and be bound by the
+              following terms and conditions. Please read them carefully.
+            </p>
+            <div class="mt-3">
+              <h6>1.Acceptance of Terms</h6>
+              <p>
+                By downloading, installing, or using the SSJOS app, you agree to
+                be bound by these terms and conditions. If you do not agree with
+                any part of these terms, you must not use the app.
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>2. Eligibility</h6>
+              <p>
+                The SSJOS app is intended for use by SSJOS members only. By
+                using the app, you confirm that you are a current member of
+                SSJOS and are authorized to use the app.
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>3. Registration and Account</h6>
+              <p>
+                To use the app, you must create an account by providing accurate
+                and complete information. You are responsible for maintaining
+                the confidentiality of your account credentials and for all
+                activities that occur under your account.
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>4. Use of the App</h6>
+              <p>
+                You agree to use the app only for lawful purposes and in
+                accordance with these terms. You must not use the app to upload,
+                post, or share any content that is illegal, harmful, offensive,
+                or violates the rights of others. You must not use the app to
+                distribute spam, viruses, or any other harmful software.
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>5. Privacy</h6>
+              <p>
+                Your privacy is important to us. Please review our Privacy
+                Policy, which explains how we collect, use, and protect your
+                personal information.
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>6. Intellectual Property</h6>
+              <p>
+                All content and materials available on the app, including but
+                not limited to text, graphics, logos, and software, are the
+                property of SSJOS or its licensors and are protected by
+                intellectual property laws. You may not reproduce, distribute,
+                or create derivative works from any content on the app without
+                our express written permission.
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>7. User Content</h6>
+              <p>
+                By posting or sharing content on the app, you grant SSJOS a
+                non-exclusive, royalty-free, worldwide license to use,
+                reproduce, modify, and distribute your content. You are solely
+                responsible for the content you post and must ensure that it
+                does not violate any laws or the rights of third parties.
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>8. Termination</h6>
+              <p>
+                We reserve the right to terminate or suspend your access to the
+                app at any time, without notice, for conduct that we believe
+                violates these terms or is harmful to other users. You may
+                terminate your account at any time by uninstalling the app and
+                ceasing all use of it.
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>9. Limitation of Liability</h6>
+              <p>
+                To the fullest extent permitted by law, SSJOS will not be liable
+                for any indirect, incidental, special, consequential, or
+                punitive damages, or any loss of profits or revenues, whether
+                incurred directly or indirectly, or any loss of data, use,
+                goodwill, or other intangible losses resulting from your use of
+                the app.
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>10. Changes to Terms</h6>
+              <p>
+                We may modify these terms from time to time. We will notify you
+                of any changes by updating the terms on the app and/or through
+                other communication channels. Your continued use of the app
+                after any changes indicates your acceptance of the new terms.
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>11. Governing Law</h6>
+              <p>
+                These terms and conditions are governed by and construed in
+                accordance with the laws of Bangalore, Karnataka, India. Any
+                disputes arising out of or related to these terms will be
+                resolved exclusively in the courts of Bangalore, Karnataka,
+                India. .
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>12. Contact Us</h6>
+              <p>
+                If you have any questions or concerns about these terms, please
+                contact us at 99459 51456.<br/>
+                 By using the SSJOS app, you acknowledge that you have read, understood, and agree to be
+                bound by these terms and conditions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

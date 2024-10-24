@@ -1,0 +1,55 @@
+name: Community Plus 91 Project Pipeline
+on:
+  push:
+    branches:
+      - prod
+      - staging
+      - qa
+
+
+jobs:
+  deploy_to_production:
+    if: github.ref == 'refs/heads/prod'  # Only run this job when code is pushed to the main branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Deploy to production server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_MAIN_HOST }}
+          username: ${{ secrets.SSH_MAIN_USERNAME }}
+          port: ${{ secrets.SSH_MAIN_PORT }}
+          key: ${{ secrets.PRIVATE_MAIN_KEYS }}
+          script: "cd /var/www/html/Plus-91-backend && ./.runner/deploy.sh"
+
+
+  deploy_to_staging:
+    if: github.ref == 'refs/heads/staging'  # Only run this job when code is pushed to the staging branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Deploy to staging server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.PRIVATE_KEYS }}
+          script: "cd /home/u682428483/domains/91.marioxsoftwaredevelopmentagency.com/public_html && ./.runner/deploy.sh"
+
+  deploy_to_qa:
+    if: github.ref == 'refs/heads/qa'  # Only run this job when code is pushed to the qa branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Deploy to staging server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.PRIVATE_KEYS }}
+          script: "cd /home/u682428483/domains/91-qa.marioxsoftwaredevelopmentagency.com/public_html && ./.runner/deploy.sh"

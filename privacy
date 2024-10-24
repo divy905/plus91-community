@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style></style>
+  <body>
+    <div class="p-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="text-center">SSJOS Privacy Policy and Terms of Use</h3>
+            <p class="mt-3">
+                This Privacy Policy and Terms of Use ("Policy") describes how SSJOS ("we," "us," or "our") collects, uses, and discloses your information in connection with your use of the SSJOS mobile application ("App").
+            </p>
+            <div class="mt-3">
+              <h6>1. Acceptance of Policy</h6>
+              <p>
+                By downloading, installing, or using the App, you agree to be bound by this Policy. If you do not agree to this Policy, you may not access or use the App.
+
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>2. Information We Collect</h6>
+              <p>
+                We collect two types of information through the App:<br/>
+
+                Personal Information: This is information that can be used to identify you as an individual. We may collect the following Personal Information:<br/>
+                Name<br/>
+                Email address<br/>
+                Username (if applicable)<br/>
+                Profile picture (if applicable)<br/>
+                Any other information you choose to provide in your profile or through your interactions with the App<br/>
+                Non-Personal Information: This is information that cannot be used to identify you as an individual. We may collect the following Non-Personal Information:<br/>
+                Device information (e.g., device type, operating system, IP address)<br/>
+                Usage data (e.g., how you use the App, features you access)<br/>
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>3. Use of Information</h6>
+              <p>
+                We use the information we collect to:<br/>
+
+                Provide and operate the App<br/>
+                Allow you to connect with other SSJOS members<br/>
+                Send you push notifications (with your consent)<br/>
+                Improve the App and develop new features<br/>
+                Respond to your inquiries and requests<br/>
+                Send you information about SSJOS events and announcements<br/>
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>4. Disclosure of Information</h6>
+              <p>
+                We may disclose your information to third-party service providers who help us operate the App, such as data storage providers or analytics providers. These third-party service providers are obligated to keep your information confidential and secure.
+                <br/>
+                We may also disclose your information if we are required to do so by law or in the good faith belief that such disclosure is necessary to comply with a court order, subpoena, or other legal process, or to protect the rights or safety of us or others.
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>5. Data Security</h6>
+              <p>
+                We take reasonable steps to protect your information from unauthorized access, disclosure, alteration, or destruction. However, no internet or electronic storage system is 100% secure. We cannot guarantee the security of your information.
+
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>6. Your Choices</h6>
+              <p>
+                You can access and update your profile information through the App settings.
+
+                You can opt out of receiving push notifications by changing your device settings.
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>7. Changes to this Policy</h6>
+              <p>
+                We may update this Policy from time to time. We will notify you of any changes by posting the new Policy on the App. You are advised to review this Policy periodically for any changes.
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>8. Contact Us</h6>
+              <p>
+                If you have any questions about this Policy, please contact us at: info@siwanchijain.com
+              </p>
+            </div>
+            <div class="mt-3">
+              <h6>9. Additional Terms for Apple Devices</h6>
+              <p>
+                If you are using the App on an Apple device, the following additional terms apply:<br/>
+
+                You acknowledge that Apple is not responsible for the App or its content.<br/>
+                Your use of the App is subject to Apple's App Store Terms of Service.<br/>
+              </p>
+            </div>
+            
+            <div class="mt-3">
+              <h6>10. Additional Terms for Android Devices</h6>
+              <p>
+                If you are using the App on an Android device, the following additional terms apply:<br/>
+
+                You grant us permission to access the information described in this Policy on your device.
+                You acknowledge that your use of the App is governed by Google's Play Store Terms of Service.
+                By using the App, you acknowledge that you have read and understood this Policy.
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
