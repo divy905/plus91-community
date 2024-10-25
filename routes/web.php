@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\CustomHelper;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Route;
 

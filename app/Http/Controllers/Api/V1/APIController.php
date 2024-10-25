@@ -633,6 +633,7 @@ class APIController extends Controller
             )->where('users.status',1)
             ->leftJoin('wishlist', 'users.id', '=', 'wishlist.user_added')
             ->leftJoin('goatra', 'users.gotra_id', '=', 'goatra.id')
+            ->leftJoin('goatra', 'users.sasural_gotra_id', '=', 'goatra.id')
             ->leftJoin('native_villags as nv', 'nv.id', '=', 'users.native_village_id')
             ->leftJoin('all_categories as groups', 'users.group_id', '=', 'groups.id');
 
