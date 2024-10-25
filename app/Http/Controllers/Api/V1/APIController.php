@@ -628,6 +628,7 @@ class APIController extends Controller
                 'wishlist.is_directory',
                 DB::raw("CONCAT('$awsStorageUrl/', users.image) AS image"),
                 'goatra.name as gotraName',
+                'goatra.name as sasuralGotraName',
                 'groups.name as groupName',
                 'nv.name as nativeVillageName'
             )->where('users.status',1)
