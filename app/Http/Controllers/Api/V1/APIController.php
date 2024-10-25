@@ -627,14 +627,14 @@ class APIController extends Controller
                 'users.*',
                 'wishlist.is_directory',
                 DB::raw("CONCAT('$awsStorageUrl/', users.image) AS image"),
-                'goatra.name as gotraName',
-                'goatra.name as sasuralGotraName',
+                'gotra.name as gotraName',
+                'sasuralGotra.name as sasuralGotraName',
                 'groups.name as groupName',
                 'nv.name as nativeVillageName'
             )->where('users.status',1)
             ->leftJoin('wishlist', 'users.id', '=', 'wishlist.user_added')
-            ->leftJoin('goatra', 'users.gotra_id', '=', 'goatra.id')
-            ->leftJoin('goatra', 'users.sasural_gotra_id', '=', 'goatra.id')
+            ->leftJoin('goatra as gotra', 'users.gotra_id', '=', 'gotra.id')
+            ->leftJoin('goatra as sasuralGotra', 'users.sasural_gotra_id', '=', 'sasuralGotra.id')
             ->leftJoin('native_villags as nv', 'nv.id', '=', 'users.native_village_id')
             ->leftJoin('all_categories as groups', 'users.group_id', '=', 'groups.id');
 
