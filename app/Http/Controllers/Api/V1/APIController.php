@@ -520,11 +520,12 @@ class APIController extends Controller
         //     $query->where('users.dob', '<', $minBirthDate);
         // }
         //print_r($minBirthDate);die;
-        if (!empty($gender)) {
-            dd($gender);
+        if (!empty($gender == 0)) {
             $query->where('users.gender', $gender);
         }
-        dd('out',$gender);
+        if (!empty($gender == 1)) {
+            $query->where('users.gender', $gender);
+        }
         
         if (!empty($maritulStatus)) {
             $query->where('users.maritl_status', $maritulStatus);
