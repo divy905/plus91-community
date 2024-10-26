@@ -45,7 +45,7 @@ $settings = \App\Models\Settings::first();
 							<!-- @include('snippets.errors') -->
 							@include('snippets.flash')
 							<h1>Welcome to {{$settings->app_name??''}}</h1>
-							<h2>Sign in Admin</h2>
+							<h2>Sign in</h2>
 
 							<form action="{{url('admin/login')}}" method="post">
 								{{ csrf_field() }}
