@@ -632,6 +632,7 @@ class APIController extends Controller
         $group_id = $request->group_id;
         $gotra_id = $request->gotra_id;
         $cmpny_name = $request->cmpny_name;
+        $industry = $request->industry;
         $name = $request->name;
         $awsStorageUrl = env('AWS_STORAGE_URL');
 
@@ -676,6 +677,9 @@ class APIController extends Controller
 
         if (!empty($cmpny_name)) {
             $query->where('users.cmpny_name', 'like', '%' . $cmpny_name . '%');
+        }
+        if (!empty($industry)) {
+            $query->where('users.industry', 'like', '%' . $industry . '%');
         }
 
         if (!empty($name)) {
