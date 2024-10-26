@@ -564,9 +564,6 @@ class APIController extends Controller
             $query->whereNotIn('users.gotra_id', $exgotraIds);
         }
 
-        if (!empty($gender)) {
-            $query->where('users.gender', 'like', '%' . $gender . '%');
-        }
 
         if (!empty($minAgeDate)) {
             $minAgeDateFormatted = \Carbon\Carbon::createFromFormat('d-m-Y', $minAgeDate)->format('Y-m-d');
