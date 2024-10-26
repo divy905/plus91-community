@@ -537,9 +537,10 @@ class APIController extends Controller
             $query->where('users.native_village_id', $native_village_id);
         }
 
-        if (!empty($profession)) {
-            $query->where('users.designation', $profession);
+        if (!empty($$profession)) {
+            $query->where('users.designation', 'like', '%' . $$profession . '%');
         }
+        
         if (!empty($education)) {
             $query->where('users.education', 'like', '%' . $education . '%');
         }
