@@ -512,14 +512,18 @@ class APIController extends Controller
         // $gender = Auth::user()->gender;
         // Add age restriction based on gender
         $today = now();
-        if (strtolower($gender) == 0) {
-            $minBirthDate = $today->subYears(21);
-            $query->where('users.dob', '<', $minBirthDate);
-        } elseif (strtolower($gender) == 1) {
-            $minBirthDate = $today->subYears(18);
-            $query->where('users.dob', '<', $minBirthDate);
-        }
+        // if (strtolower($gender) == 0) {
+        //     $minBirthDate = $today->subYears(21);
+        //     $query->where('users.dob', '<', $minBirthDate);
+        // } elseif (strtolower($gender) == 1) {
+        //     $minBirthDate = $today->subYears(18);
+        //     $query->where('users.dob', '<', $minBirthDate);
+        // }
         //print_r($minBirthDate);die;
+        if (!empty($gender)) {
+            $query->where('users.gender', $gender);
+        }
+        
         if (!empty($maritulStatus)) {
             $query->where('users.maritl_status', $maritulStatus);
         } else {
