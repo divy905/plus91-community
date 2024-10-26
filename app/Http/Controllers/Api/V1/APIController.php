@@ -519,10 +519,6 @@ class APIController extends Controller
             $minBirthDate = $today->subYears(18);
             $query->where('users.dob', '<', $minBirthDate);
         }
-        //print_r($minBirthDate);die;
-        if (!empty($gender == 0)) {
-            $query->where('users.gender', $gender);
-        }
         
         if (!empty($maritulStatus)) {
             $query->where('users.maritl_status', $maritulStatus);
