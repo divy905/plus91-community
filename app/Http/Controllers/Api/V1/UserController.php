@@ -29,9 +29,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     // error message print one by one 
     public function errorMessage($error)
@@ -65,14 +63,14 @@ class UserController extends Controller
 
         // Check if the phone number already exists
         $existingUser = User::where('phone', $request->phone)->first();
-        
-        if(!empty($existingUser)){
-            if( $existingUser->status == 0){
+
+        if (!empty($existingUser)) {
+            if ($existingUser->status == 0) {
                 return response()->json([
                     'result' => true,
                     'message' => 'Account Suspended!',
                     'status' => $existingUser->status,
-                ], 200); 
+                ], 200);
             }
         }
 
@@ -97,7 +95,7 @@ class UserController extends Controller
                 }
             }
 
-            if($request->phone == "9876543210"){
+            if ($request->phone == "9876543210") {
                 $otp = '1234';
                 UserOtp::updateOrCreate([
                     'mobile' => $mobile
@@ -208,60 +206,59 @@ class UserController extends Controller
         $getUserOtpDetails = UserOtp::where(['mobile' => $mobile, 'type' => 'login'])->first();
 
         // cURL to verify OTP with external service
-        if($mobile != '9876543210'){
-         
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://auth.otpless.app/auth/otp/v1/verify');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-            'orderId' => $getUserOtpDetails->otp, // Replace with actual order ID if available
-            'otp' => $otp,
-            'phoneNumber' => '91' . $mobile,
-        ]));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'clientId: LF4R5FC2J4BVRYLOPAGNR39OP9YFPXUV',
-            'clientSecret: r1rmrs5v5mi0z2i3610le6lzfy0xdt1y',
-            'Content-Type: application/json',
-        ]);
+        if ($mobile != '9876543210') {
 
-        $response = curl_exec($ch);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, 'https://auth.otpless.app/auth/otp/v1/verify');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+                'orderId' => $getUserOtpDetails->otp, // Replace with actual order ID if available
+                'otp' => $otp,
+                'phoneNumber' => '91' . $mobile,
+            ]));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'clientId: LF4R5FC2J4BVRYLOPAGNR39OP9YFPXUV',
+                'clientSecret: r1rmrs5v5mi0z2i3610le6lzfy0xdt1y',
+                'Content-Type: application/json',
+            ]);
 
-        if (curl_errno($ch)) {
-            return response()->json([
-                'result' => false,
-                'message' => 'Failed to verify OTP: ' . curl_error($ch),
-                'status' => $status,
-            ], 200);
+            $response = curl_exec($ch);
+
+            if (curl_errno($ch)) {
+                return response()->json([
+                    'result' => false,
+                    'message' => 'Failed to verify OTP: ' . curl_error($ch),
+                    'status' => $status,
+                ], 200);
+            }
+
+            $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            if ($http_code !== 200) {
+                return response()->json([
+                    'result' => false,
+                    'message' => 'Failed to verify OTP. HTTP Status Code: ' . $http_code,
+                    'status' => $status,
+                ], 200);
+            }
+
+            // Decode the response body
+            $responseBody = json_decode($response, true);
+
+            // Debugging: Log or inspect responseBody
+            \Log::info('Response from OTP verification service:', $responseBody);
+
+            // Check if the OTP is verified
+            if (!isset($responseBody['isOTPVerified']) || !$responseBody['isOTPVerified']) {
+                return response()->json([
+                    'result' => false,
+                    'message' => 'OTP Not Verified',
+                    'status' => $status,
+                ], 200);
+            }
         }
-
-        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        if ($http_code !== 200) {
-            return response()->json([
-                'result' => false,
-                'message' => 'Failed to verify OTP. HTTP Status Code: ' . $http_code,
-                'status' => $status,
-            ], 200);
-        }
-
-        // Decode the response body
-        $responseBody = json_decode($response, true);
-
-        // Debugging: Log or inspect responseBody
-        \Log::info('Response from OTP verification service:', $responseBody);
-
-        // Check if the OTP is verified
-        if (!isset($responseBody['isOTPVerified']) || !$responseBody['isOTPVerified']) {
-            return response()->json([
-                'result' => false,
-                'message' => 'OTP Not Verified',
-                'status' => $status,
-            ], 200);
-        }
-           
-    }
 
         // Continue with the local verification and user handling logic
         if ($type == 'login') {
@@ -338,12 +335,14 @@ class UserController extends Controller
         $data = DB::table('users')
             ->leftJoin('goatra as g', 'users.gotra_id', '=', 'g.id')
             ->leftJoin('all_categories as c', 'users.group_id', '=', 'c.id')
+            ->leftJoin('users as hf', 'users.head_of_family', '=', 'hf.id') // Self-join to get head of family name
             ->where('users.id', Auth::user()->id)
             ->select(
                 'users.*',
                 DB::raw("CONCAT('/public/uploads/', users.image) AS image"),
                 'g.name as goatraName',
                 'c.name as GroupName',
+                'hf.name as headOfFamilyName', // Retrieve the head of family name
                 DB::raw('CASE WHEN users.name IS NULL THEN NULL ELSE 1 END AS is_valid')
             )
             ->first();
@@ -365,6 +364,7 @@ class UserController extends Controller
 
         return $this->respondWithSuccess($response);
     }
+
 
 
 
@@ -449,7 +449,7 @@ class UserController extends Controller
             'firm_address' => $request->firm_address,
             'residence_address' => $request->residence_address,
             'native_full_address' => $request->native_full_address,
-            'member_id' => "MBRID#" . rand(1111,9999),
+            'member_id' => "MBRID#" . rand(1111, 9999),
         ];
 
         $userExistsWithEmail = User::where('email', $request->email)->first();
@@ -788,10 +788,10 @@ class UserController extends Controller
         $newMember->cmpny_name = $request->input('cmpny_name');
         $newMember->save();
 
-        Mail::send('email.addmember', ['user' => $request->input('name')], function ($message) use($request){
+        Mail::send('email.addmember', ['user' => $request->input('name')], function ($message) use ($request) {
 
             $message->to($request->email)
-            ->subject('Member Added To Community');
+                ->subject('Member Added To Community');
         });
         return response()->json([
             'result' => true,
