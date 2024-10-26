@@ -475,7 +475,6 @@ class APIController extends Controller
         $profession = $request->profession;
         $group_name = $request->group_name;
         $gender  = $request->gender;
-        dd($gender);
         $education  = $request->education;
         $organisation = $request->organisation;
         $excludeGotraIds = explode(',', $request->exclude_gotra_id);
@@ -525,6 +524,7 @@ class APIController extends Controller
             dd($gender);
             $query->where('users.gender', $gender);
         }
+        dd('out',$gender);
         
         if (!empty($maritulStatus)) {
             $query->where('users.maritl_status', $maritulStatus);
