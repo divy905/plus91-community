@@ -42,10 +42,10 @@ $settings = \App\Models\Settings::first();
 					</div>
 					<div class="login-right">
 						<div class="login-right-wrap">
-							<!-- @include('snippets.errors') -->
+							<!-- @include('snippets.errors') this is flash msg -->
 							@include('snippets.flash')
 							<h1>Welcome to {{$settings->app_name??''}}</h1>
-							<h2>Sign in</h2>
+							<h2>Sign in Admin</h2>
 
 							<form action="{{url('admin/login')}}" method="post">
 								{{ csrf_field() }}
