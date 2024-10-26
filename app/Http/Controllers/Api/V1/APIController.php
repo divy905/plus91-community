@@ -481,14 +481,18 @@ class APIController extends Controller
                 'users.*',
                 'wishlist.is_matrimony',
                 DB::raw("CONCAT('$awsStorageUrl/', users.image) AS image"),
-                'goatra.name as gotraName',
+                'gotraNormal.name as gotraName',
+                'sasuralGotra.name as sasuralGotraName',
                 'groups.name as groupName',
-                'nv.name as nativeVillageName'
+                'nv.name as nativeVillageName',
+                DB::raw("headOfFamily.name AS headOfFamilyName")
             )->where('users.status',1)
             ->leftJoin('wishlist', 'wishlist.user_added', 'users.id')
-            ->leftJoin('goatra', 'users.gotra_id', '=', 'goatra.id')
+            ->leftJoin('goatra as gotraNormal', 'users.gotra_id', '=', 'gotraNormal.id')
+            ->leftJoin('goatra as sasuralGotra', 'users.sasural_gotra_id', '=', 'sasuralGotra.id')
             ->leftJoin('all_categories as groups', 'users.group_id', '=', 'groups.id')
-            ->leftJoin('native_villags as nv', 'nv.id', '=', 'users.native_village_id');
+            ->leftJoin('native_villags as nv', 'nv.id', '=', 'users.native_village_id')
+            ->leftJoin('users as headOfFamily', 'users.head_of_family', '=', 'headOfFamily.id');
 
         if ($id) {
             $data = $query->where('users.id', $id)->first();
@@ -592,12 +596,14 @@ class APIController extends Controller
             ->select(
                 'users.*',
                 DB::raw("CONCAT('$awsStorageUrl/', users.image) AS image"),
-                'goatra.name as gotraName',
+                'gotraNormal.name as gotraName',
+                'sasuralGotra.name as sasuralGotraName',
                 'groups.name as groupName',
                 'sasural_goatra.name as sasuralGotraName',
                 'nv.name as nativeVillageName'
             ) ->leftJoin('goatra as sasural_goatra', 'users.sasural_gotra_id', '=', 'sasural_goatra.id')
-            ->leftJoin('goatra', 'users.gotra_id', '=', 'goatra.id')
+            ->leftJoin('goatra as gotraNormal', 'users.gotra_id', '=', 'gotraNormal.id')
+            ->leftJoin('goatra as sasuralGotra', 'users.sasural_gotra_id', '=', 'sasuralGotra.id')
             ->leftJoin('native_villags as nv', 'nv.id', '=', 'users.native_village_id')
             ->leftJoin('all_categories as groups', 'users.group_id', '=', 'groups.id')->where('users.head_of_family', $id);
 
@@ -630,13 +636,15 @@ class APIController extends Controller
                 'gotraNormal.name as gotraName',
                 'sasuralGotra.name as sasuralGotraName',
                 'groups.name as groupName',
-                'nv.name as nativeVillageName'
+                'nv.name as nativeVillageName',
+                DB::raw("headOfFamily.name AS headOfFamilyName")
             )->where('users.status',1)
             ->leftJoin('wishlist', 'users.id', '=', 'wishlist.user_added')
-            ->leftJoin('goatra as gotraNormal', 'users.gotra_id', '=', 'gotra.id')
+            ->leftJoin('goatra as gotraNormal', 'users.gotra_id', '=', 'gotraNormal.id')
             ->leftJoin('goatra as sasuralGotra', 'users.sasural_gotra_id', '=', 'sasuralGotra.id')
             ->leftJoin('native_villags as nv', 'nv.id', '=', 'users.native_village_id')
-            ->leftJoin('all_categories as groups', 'users.group_id', '=', 'groups.id');
+            ->leftJoin('all_categories as groups', 'users.group_id', '=', 'groups.id')
+            ->leftJoin('users as headOfFamily', 'users.head_of_family', '=', 'headOfFamily.id');
 
         if ($id) {
             $data = $query->where('users.id', $id)->where('users.name', '!=', '')->first();
@@ -716,11 +724,13 @@ class APIController extends Controller
             ->select(
                 'users.*',
                 DB::raw("CONCAT('$awsStorageUrl/', users.image) AS image"),
-                'goatra.name as gotraName',
+                'gotraNormal.name as gotraName',
+                'sasuralGotra.name as sasuralGotraName',
                 'groups.name as groupName',
                 'nv.name as nativeVillageName'
             )
-            ->leftJoin('goatra', 'users.gotra_id', '=', 'goatra.id')
+            ->leftJoin('goatra as gotraNormal', 'users.gotra_id', '=', 'gotraNormal.id')
+            ->leftJoin('goatra as sasuralGotra', 'users.sasural_gotra_id', '=', 'sasuralGotra.id')
             ->leftJoin('native_villags as nv', 'nv.id', '=', 'users.native_village_id')
             ->leftJoin('all_categories as groups', 'users.group_id', '=', 'groups.id')
             ->where('users.head_of_family', $id);

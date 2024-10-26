@@ -56,7 +56,7 @@ $groups = DB::table('all_categories')->orderBy('id', 'DESC')->get();
                     <div class="card-body">
                         <form method="POST" action="" accept-charset="UTF-8" enctype="multipart/form-data" role="form">
                             {{ csrf_field() }}
-<input type="hidden" name="is_registered" value="1">
+                            <input type="hidden" name="is_registered" value="1">
                             <input type="hidden" name="id" value="{{$users_id}}">
                             <div class="row">
                                 <div class="col-12">
@@ -69,17 +69,17 @@ $groups = DB::table('all_categories')->orderBy('id', 'DESC')->get();
                                     <div class="form-group local-forms">
                                         <label for="userEmail">Member #ID</label>
                                         <input type="text" name="member_id" value="{{ old('member_id', $member_id) }}" id="member_id" class="form-control" maxlength="255" placeholder="Enter Member #ID Like: MBRID#6435" />
-                                       <span class="text-danger"> @include('snippets.errors_first', ['param' => 'member_id'])</span>
+                                        <span class="text-danger"> @include('snippets.errors_first', ['param' => 'member_id'])</span>
                                     </div>
                                 </div>
-                               <div class="col-4 col-sm-4">
+                                <div class="col-4 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label for="industry">Industry</label>
                                         <input type="text" name="industry" value="{{ old('industry', $industry) }}" id="industry" class="form-control" maxlength="255" placeholder="Enter Industry" />
                                     </div>
                                 </div>
 
-                                 <div class="col-4 col-sm-4">
+                                <div class="col-4 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label for="industry">Company Name</label>
                                         <input type="text" name="cmpny_name" value="{{ old('cmpny_name', $cmpny_name) }}" id="cmpny_name" class="form-control" maxlength="255" placeholder="Enter Company Name" />
@@ -93,18 +93,18 @@ $groups = DB::table('all_categories')->orderBy('id', 'DESC')->get();
                                     </div>
                                 </div>
 
-						<div class="col-12 col-sm-4">
-						    <div class="form-group local-forms">
-							<label for="userEmail">Email</label>
-								<input type="text" name="email" value="{{ old('email', $email) }}" id="email" class="form-control" maxlength="255" placeholder="Enter Email">
-						    </div>
-						</div>
+                                <div class="col-12 col-sm-4">
+                                    <div class="form-group local-forms">
+                                        <label for="userEmail">Email</label>
+                                        <input type="text" name="email" value="{{ old('email', $email) }}" id="email" class="form-control" maxlength="255" placeholder="Enter Email">
+                                    </div>
+                                </div>
 
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label for="userPhone">Phone</label>
                                         <input type="text" name="phone" value="{{ old('phone', $phone) }}" id="phone" class="form-control" placeholder="Enter Phone" maxlength="255" />
-                                        
+
                                     </div>
                                 </div>
 
@@ -163,8 +163,8 @@ $groups = DB::table('all_categories')->orderBy('id', 'DESC')->get();
                                         </select>
                                         @include('snippets.errors_first', ['param' => 'bld_group'])
                                     </div>
-	                                </div>
-<div class="col-12 col-sm-4">
+                                </div>
+                                <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label for="gender">Gender</label>
                                         <select name="gender" id="gender" class="form-control">
@@ -190,7 +190,7 @@ $groups = DB::table('all_categories')->orderBy('id', 'DESC')->get();
                                     </div>
                                 </div>
 
-<div class="col-12 col-sm-4">
+                                <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label for="maritl_status">Profession List</label>
                                         <select name="designation" id="designation" class="form-control">
@@ -213,16 +213,16 @@ $groups = DB::table('all_categories')->orderBy('id', 'DESC')->get();
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label for="education">Education</label>
-<select required name="education" id="education" class="form-control">
-    <option value="Undergraduate" {{ old('education', $education) == 'Undergraduate' ? 'selected' : '' }}>Undergraduate</option>
-    <option value="Greaduate" {{ old('education', $education) == 'Greaduate' ? 'selected' : '' }}>Greduate</option>
-    <option value="Post Graduate" {{ old('education', $education) == 'Post Graduate' ? 'selected' : '' }}>Post Graduate</option>
-    <option value="PHD" {{ old('education', $education) == 'PHD' ? 'selected' : '' }}>PHD</option>
-</select>
-                                         @include('snippets.errors_first', ['param' => 'education'])
+                                        <select required name="education" id="education" class="form-control">
+                                            <option value="Undergraduate" {{ old('education', $education) == 'Undergraduate' ? 'selected' : '' }}>Undergraduate</option>
+                                            <option value="Greduate" {{ old('education', $education) == 'Greduate' ? 'selected' : '' }}>Greduate</option>
+                                            <option value="Post Graduate" {{ old('education', $education) == 'Post Graduate' ? 'selected' : '' }}>Post Graduate</option>
+                                            <option value="PHD" {{ old('education', $education) == 'PHD' ? 'selected' : '' }}>PHD</option>
+                                        </select>
+                                        @include('snippets.errors_first', ['param' => 'education'])
                                     </div>
                                 </div>
-<div class="col-12 col-sm-4">
+                                <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label for="native_full_address">Native Full Address</label>
                                         <input type="text" name="native_full_address" value="{{ old('native_full_address', $native_full_address) }}" id="native_full_address" class="form-control" maxlength="255" placeholder="Enter native address" />
@@ -260,7 +260,7 @@ $groups = DB::table('all_categories')->orderBy('id', 'DESC')->get();
                                         @include('snippets.errors_first', ['param' => 'gotra_id'])
                                     </div>
                                 </div>
-<div class="col-12 col-sm-4">
+                                <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label for="sasural_gotra_id">Sasural Paksh Gotra</label>
                                         <select name="sasural_gotra_id" id="sasural_gotra_id" class="form-control">

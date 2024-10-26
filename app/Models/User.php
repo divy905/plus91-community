@@ -41,14 +41,17 @@ class User extends Authenticatable
         'bld_group',
         'maritl_status',
         'education',
-	'gotra',
-	 'native_village_id',
+        'gotra',
+        'native_village_id',
         'firm_address',
         'residence_address',
         'native_full_address',
         'member_id',
         'cmpny_name',
         'designation',
+        'gotra_id',
+        'sasural_gotra_id',
+        'industry',
     ];
 
     /**
