@@ -50,7 +50,8 @@ $settings = \App\Models\Settings::first();
 							<form action="{{url('admin/login')}}" method="post">
 								{{ csrf_field() }}
 								<div class="form-group">
-									<label>Username <span class="login-danger">*</span></label>
+									<!-- user name here  -->
+									<label>Email <span class="login-danger">*</span></label>
 									<input class="form-control" name="email" placeholder="Enter Email/Username" type="email">
 									<span class="profile-views"><i class="fas fa-user-circle"></i></span>
 									@error('email')
