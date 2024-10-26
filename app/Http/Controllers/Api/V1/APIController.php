@@ -107,7 +107,7 @@ class APIController extends Controller
 
         return response()->json([
             'result' => true,
-            'message' => 'User Fetched Successfully',
+            'message' => 'User Profile Fetched Successfully',
             'data' => $user
         ], 200);
     }
