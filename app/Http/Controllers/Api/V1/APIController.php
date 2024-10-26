@@ -27,9 +27,7 @@ class APIController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function home(Request $request)
     {
@@ -97,13 +95,29 @@ class APIController extends Controller
 
     public function userProfile(Request $request)
     {
-        $Category = User::where('is_delete', 0)->where('id', $request->id)->First();
+        // Fetch the user and their head of family name directly
+        $user = User::where('is_delete', 0)
+            ->where('id', $request->id)
+            ->first();
+
+        if (!$user) {
+            return response()->json([
+                'result' => false,
+                'message' => 'User not found',
+                'data' => null
+            ], 404);
+        }
+
+        $headOfFamilyName = User::where('id', $user->head_of_family)->value('name');
+        $user->headOfFamilyName = $headOfFamilyName;
+
         return response()->json([
             'result' => true,
-            'message' => 'User Fetched SuccessFully',
-            'data' => $Category
+            'message' => 'User Fetched Successfully',
+            'data' => $user
         ], 200);
     }
+
 
 
     function addAddress(Request $request)
@@ -285,26 +299,26 @@ class APIController extends Controller
                 DB::raw("CONCAT('" . env('AWS_STORAGE_URL') . "/', events.image) AS image"),
                 DB::raw("IF(transactions.id IS NOT NULL, 1, 0) AS isJoined")
             )
-            ->leftJoin('transactions', function($join) use ($userId) {
-                $join->on('transactions.event_id', '=', 'events.id')
-                     ->where('transactions.user_id', '=', $userId);
-            });
-        
-        if (!empty($request->search)) {
-            $query->where('events.title', 'like', '%' . $request->search . '%');
-        }
-        
-        // Apply event_type filters
-        if ($request->event_type == 1) {
-            // Upcoming events
-            $query->where('events.event_date', '>=', $currentDate);
-        } elseif ($request->event_type == 2) {
-            // Past events
-            $query->where('events.event_date', '<', $currentDate);
-        }
-        
-        $query->orderBy('events.id', 'desc');
-        $datalist = $query->paginate(10);
+                ->leftJoin('transactions', function ($join) use ($userId) {
+                    $join->on('transactions.event_id', '=', 'events.id')
+                        ->where('transactions.user_id', '=', $userId);
+                });
+
+            if (!empty($request->search)) {
+                $query->where('events.title', 'like', '%' . $request->search . '%');
+            }
+
+            // Apply event_type filters
+            if ($request->event_type == 1) {
+                // Upcoming events
+                $query->where('events.event_date', '>=', $currentDate);
+            } elseif ($request->event_type == 2) {
+                // Past events
+                $query->where('events.event_date', '<', $currentDate);
+            }
+
+            $query->orderBy('events.id', 'desc');
+            $datalist = $query->paginate(10);
             $data = $datalist->toArray();
             $data['dataItems'] = $data['data'];
             unset($data['data']);
@@ -484,7 +498,7 @@ class APIController extends Controller
                 'goatra.name as gotraName',
                 'groups.name as groupName',
                 'nv.name as nativeVillageName'
-            )->where('users.status',1)
+            )->where('users.status', 1)
             ->leftJoin('wishlist', 'wishlist.user_added', 'users.id')
             ->leftJoin('goatra', 'users.gotra_id', '=', 'goatra.id')
             ->leftJoin('all_categories as groups', 'users.group_id', '=', 'groups.id')
@@ -498,7 +512,7 @@ class APIController extends Controller
                 'data' => $data
             ], 200);
         }
-// $gender = Auth::user()->gender;
+        // $gender = Auth::user()->gender;
         // Add age restriction based on gender
         $today = now();
         if (strtolower($gender) == 0) {
@@ -508,18 +522,18 @@ class APIController extends Controller
             $minBirthDate = $today->subYears(18);
             $query->where('users.dob', '<', $minBirthDate);
         }
-//print_r($minBirthDate);die;
+        //print_r($minBirthDate);die;
         if (!empty($maritulStatus)) {
             $query->where('users.maritl_status', $maritulStatus);
-        }else{
-            $query->where('users.maritl_status','!=', 'Married');
+        } else {
+            $query->where('users.maritl_status', '!=', 'Married');
         }
 
         if (!empty($native_village_id)) {
             $query->where('users.native_village_id', $native_village_id);
         }
 
- if (!empty($profession)) {
+        if (!empty($profession)) {
             $query->where('users.designation', $profession);
         }
         if (!empty($education)) {
@@ -567,10 +581,10 @@ class APIController extends Controller
             $query->orWhere('wishlist.is_matrimony', 1)
                 ->orWhereNull('wishlist.is_matrimony');
         });
-        $datalist = $query->where('users.name', '!=', '')->where('users.id','!=',Auth::user()->id)->paginate(10);
+        $datalist = $query->where('users.name', '!=', '')->where('users.id', '!=', Auth::user()->id)->paginate(10);
         $data = $datalist->toArray();
-        foreach($data as $key => $val){
-            if(!empty($val->head_of_family)){
+        foreach ($data as $key => $val) {
+            if (!empty($val->head_of_family)) {
                 $checkParent = DB::table('users')->where('name', $val->head_of_family)->first();
                 $data[$key]['phone'] = $checkParent->phone;
             }
@@ -596,7 +610,7 @@ class APIController extends Controller
                 'groups.name as groupName',
                 'sasural_goatra.name as sasuralGotraName',
                 'nv.name as nativeVillageName'
-            ) ->leftJoin('goatra as sasural_goatra', 'users.sasural_gotra_id', '=', 'sasural_goatra.id')
+            )->leftJoin('goatra as sasural_goatra', 'users.sasural_gotra_id', '=', 'sasural_goatra.id')
             ->leftJoin('goatra', 'users.gotra_id', '=', 'goatra.id')
             ->leftJoin('native_villags as nv', 'nv.id', '=', 'users.native_village_id')
             ->leftJoin('all_categories as groups', 'users.group_id', '=', 'groups.id')->where('users.head_of_family', $id);
@@ -631,7 +645,7 @@ class APIController extends Controller
                 'sasuralGotra.name as sasuralGotraName',
                 'groups.name as groupName',
                 'nv.name as nativeVillageName'
-            )->where('users.status',1)
+            )->where('users.status', 1)
             ->leftJoin('wishlist', 'users.id', '=', 'wishlist.user_added')
             ->leftJoin('goatra as gotra', 'users.gotra_id', '=', 'gotra.id')
             ->leftJoin('goatra as sasuralGotra', 'users.sasural_gotra_id', '=', 'sasuralGotra.id')
@@ -695,7 +709,7 @@ class APIController extends Controller
         //     });
         // }
 
-        $datalist = $query->where('users.name', '!=', '')->where('users.head_of_family', null)->orderBy('users.name','Asc')->paginate(10);
+        $datalist = $query->where('users.name', '!=', '')->where('users.head_of_family', null)->orderBy('users.name', 'Asc')->paginate(10);
         $data = $datalist->toArray();
         $data['dataItems'] = $data['data'];
         unset($data['data']);
