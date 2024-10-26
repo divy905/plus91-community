@@ -521,6 +521,7 @@ class APIController extends Controller
         // }
         //print_r($minBirthDate);die;
         if (!empty($gender)) {
+            dd($gender);
             $query->where('users.gender', $gender);
         }
         
