@@ -478,7 +478,6 @@ class APIController extends Controller
         $education  = $request->education;
         $organisation = $request->organisation;
         $excludeGotraIds = explode(',', $request->exclude_gotra_id);
-        $gender = $request->gender;
         $minAgeDate = $request->input('min_age');
         $maxAgeDate = $request->input('max_age');
         $maritulStatus = $request->maritul_status;
