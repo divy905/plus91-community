@@ -492,14 +492,18 @@ class APIController extends Controller
                 'sasuralGotra.name as sasuralGotraName',
                 'groups.name as groupName',
                 'nv.name as nativeVillageName',
-                DB::raw("headOfFamily.name AS headOfFamilyName")
-            )->where('users.status', 1)
-            ->leftJoin('wishlist', 'wishlist.user_added', 'users.id')
+                'headOfFamily.name AS headOfFamilyName',
+                DB::raw("IF(users.head_of_family IS NOT NULL, COALESCE(headOfFamily.phone, 'N/A'), 'No Head of Family') AS phone"),
+                DB::raw("IF(users.head_of_family IS NOT NULL, COALESCE(headOfFamily.native_full_address, 'N/A'), 'No Head of Family') AS usersFullAdress")
+            )
+            ->where('users.status', 1)
+            ->leftJoin('wishlist', 'wishlist.user_added', '=', 'users.id')
             ->leftJoin('goatra as gotraNormal', 'users.gotra_id', '=', 'gotraNormal.id')
             ->leftJoin('goatra as sasuralGotra', 'users.sasural_gotra_id', '=', 'sasuralGotra.id')
             ->leftJoin('all_categories as groups', 'users.group_id', '=', 'groups.id')
             ->leftJoin('native_villags as nv', 'nv.id', '=', 'users.native_village_id')
             ->leftJoin('users as headOfFamily', 'users.head_of_family', '=', 'headOfFamily.id');
+
 
         if ($id) {
             $data = $query->where('users.id', $id)->first();
@@ -519,7 +523,7 @@ class APIController extends Controller
             $minBirthDate = $today->subYears(18);
             $query->where('users.dob', '<', $minBirthDate);
         }
-        
+
         if (!empty($maritulStatus)) {
             $query->where('users.maritl_status', $maritulStatus);
         } else {
@@ -533,7 +537,7 @@ class APIController extends Controller
         if (!empty($profession)) {
             $query->where('users.designation', 'like', '%' . $profession . '%');
         }
-        
+
         if (!empty($education)) {
             $query->where('users.education', 'like', '%' . $education . '%');
         }
