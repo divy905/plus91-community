@@ -530,6 +530,14 @@ class APIController extends Controller
             $query->where('users.maritl_status', '!=', 'Married');
         }
 
+        if (!empty($gender == 0)) {
+            $query->where('users.gender', $gender);
+        }
+        
+        if (!empty($gender == 1)) {
+            $query->where('users.gender', $gender);
+        }
+        
         if (!empty($native_village_id)) {
             $query->where('users.native_village_id', $native_village_id);
         }
