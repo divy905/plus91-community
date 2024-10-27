@@ -519,17 +519,6 @@ class APIController extends Controller
         if ($gender === 0 || $gender === 1) {
             // Apply the gender filter
             $query->where('users.gender', $gender);
-
-            // Set the minimum age filter based on gender
-            if ($gender === 0) {
-                // Male: minimum age 21
-                $minBirthDate = now()->subYears(21);
-                $query->where('users.dob', '<=', $minBirthDate);
-            } elseif ($gender === 1) {
-                // Female: minimum age 18
-                $minBirthDate = now()->subYears(18);
-                $query->where('users.dob', '<=', $minBirthDate);
-            }
         }
 
 
