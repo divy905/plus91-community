@@ -516,7 +516,7 @@ class APIController extends Controller
         // $gender = Auth::user()->gender;
         // Add age restriction based on gender
         $today = now();
-        if ($gender === 0 || $gender === 1) {
+        if ($gender == 0 || $gender == 1) {
             // Apply the gender filter
             $query->where('users.gender', $gender);
         }
