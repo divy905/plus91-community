@@ -516,13 +516,22 @@ class APIController extends Controller
         // $gender = Auth::user()->gender;
         // Add age restriction based on gender
         $today = now();
-        if (strtolower($gender) == 0) {
-            $minBirthDate = $today->subYears(21);
-            $query->where('users.dob', '<', $minBirthDate);
-        } elseif (strtolower($gender) == 1) {
-            $minBirthDate = $today->subYears(18);
-            $query->where('users.dob', '<', $minBirthDate);
+        if ($gender === 0 || $gender === 1) {
+            // Apply the gender filter
+            $query->where('users.gender', $gender);
+
+            // Set the minimum age filter based on gender
+            if ($gender === 0) {
+                // Male: minimum age 21
+                $minBirthDate = now()->subYears(21);
+                $query->where('users.dob', '<=', $minBirthDate);
+            } elseif ($gender === 1) {
+                // Female: minimum age 18
+                $minBirthDate = now()->subYears(18);
+                $query->where('users.dob', '<=', $minBirthDate);
+            }
         }
+
 
         if (!empty($maritulStatus)) {
             $query->where('users.maritl_status', $maritulStatus);
@@ -530,14 +539,6 @@ class APIController extends Controller
             $query->where('users.maritl_status', '!=', 'Married');
         }
 
-        if (!empty($gender == 0)) {
-            $query->where('users.gender', $gender);
-        }
-        
-        if (!empty($gender == 1)) {
-            $query->where('users.gender', $gender);
-        }
-        
         if (!empty($native_village_id)) {
             $query->where('users.native_village_id', $native_village_id);
         }
