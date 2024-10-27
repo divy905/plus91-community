@@ -473,9 +473,9 @@ class APIController extends Controller
         $native_village_id = $request->native_village_id;
         $name = $request->name;
         $profession = $request->profession;
-        $group_name = $request->group_name;
         $gender  = $request->gender;
         $education  = $request->education;
+        $group_id  = $request->group_id;
         $organisation = $request->organisation;
         $excludeGotraIds = explode(',', $request->exclude_gotra_id);
         $minAgeDate = $request->input('min_age');
@@ -546,8 +546,9 @@ class APIController extends Controller
             $query->where('users.name', $name);
         }
 
-        if (!empty($group_name)) {
-            $query->where('groups.name', $group_name);
+
+        if (!empty($group_id)) {
+            $query->where('users.group_id', $group_id);
         }
 
         if (!empty($organisation)) {
