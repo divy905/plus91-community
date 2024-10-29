@@ -95,7 +95,7 @@ class UserController extends Controller
                 }
             }
 
-            if ($request->phone == "9876543210") {
+            if ($request->phone == "6556642852") {
                 $otp = '1234';
                 UserOtp::updateOrCreate([
                     'mobile' => $mobile
@@ -206,7 +206,7 @@ class UserController extends Controller
         $getUserOtpDetails = UserOtp::where(['mobile' => $mobile, 'type' => 'login'])->first();
 
         // cURL to verify OTP with external service
-        if ($mobile != '9876543210') {
+        if ($mobile != '6556642852') {
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, 'https://auth.otpless.app/auth/otp/v1/verify');
