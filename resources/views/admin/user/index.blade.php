@@ -31,9 +31,9 @@ $groups = DB::table('all_categories')->orderBy('id', 'DESC')->get();
       @csrf
       <div class="student-group-form">
         <div class="row">
-          <div class="col-lg-3 col-md-5">
+          <div class="col-lg-5 col-md-5">
             <div class="form-group">
-              <input type="text" name="search" class="form-control" placeholder="Search by Name ...">
+              <input type="text" name="search" class="form-control" placeholder="Name/Mobile/MemberId">
             </div>
           </div>
           <div class="col-lg-3 col-md-3">
@@ -178,10 +178,10 @@ $groups = DB::table('all_categories')->orderBy('id', 'DESC')->get();
                               <i class="feather-edit"></i>
                             </a>
 
-                            <!--
-                       <a href="{{ route($routeName.'.user.delete',['id'=>$user->id,'back_url'=>$BackUrl]) }}" class="btn btn-sm bg-danger-light">
+                            
+                       <a href="{{ route($routeName.'.user.delete',['id'=>$user->id,'back_url'=>$BackUrl]) }}" class="btn btn-sm bg-danger-light btn-danger">
                         <i class="feather-trash"></i>
-                      </a> -->
+                      </a>
                             <a href="javascript:void(0);" class="btn btn-sm bg-primary-light me-2" data-bs-toggle="modal" data-bs-target="#updateGroupNameModal" title="Update Group" onclick="setUserGroup({{ $user->id }}, {{ $user->group_id }})">
                               <i class="feather-edit"></i>
                             </a>

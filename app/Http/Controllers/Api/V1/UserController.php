@@ -689,6 +689,10 @@ class UserController extends Controller
         $data['firm_address'] = $request->firm_address;
         $data['residence_address'] = $request->residence_address;
         $data['cmpny_name'] = $request->cmpny_name;
+        $data['relation_with_head'] = $request->relation_with_head;
+        $data['industry'] = $request->industry;
+        $data['sasural_gotra_id'] = $request->sasural_gotra_id;
+        $data['member_id'] = $request->member_id;
 
 
         if ($request->native_full_address) {
@@ -786,6 +790,10 @@ class UserController extends Controller
         $newMember->residence_address = $request->input('residence_address');
         $newMember->native_full_address = $request->input('native_full_address');
         $newMember->cmpny_name = $request->input('cmpny_name');
+        $newMember->sasural_gotra_id = $request->input('sasural_gotra_id');
+        $newMember->industry = $request->input('industry');
+        $newMember->member_id = $request->input('member_id');
+        $newMember->group_id = $request->input('group_id');
         $newMember->save();
 
         Mail::send('email.addmember', ['user' => $request->input('name')], function ($message) use ($request) {
@@ -866,6 +874,11 @@ class UserController extends Controller
         $member->residence_address = $request->input('residence_address');
         $member->native_full_address = $request->input('native_full_address');
         $member->cmpny_name = $request->input('cmpny_name');
+        $member->sasural_gotra_id = $request->input('sasural_gotra_id');
+        $member->industry = $request->input('industry');
+        $member->member_id = $request->input('member_id');
+        $member->group_id = $request->input('group_id');
+        $member->status = 0;
         $member->save();
 
         // Add full URL to image

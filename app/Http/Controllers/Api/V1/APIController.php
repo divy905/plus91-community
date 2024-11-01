@@ -503,7 +503,9 @@ class APIController extends Controller
             ->leftJoin('all_categories as groups', 'users.group_id', '=', 'groups.id')
             ->leftJoin('native_villags as nv', 'nv.id', '=', 'users.native_village_id')
             ->leftJoin('users as headOfFamily', 'users.head_of_family', '=', 'headOfFamily.id');
-
+        // Filtering for age above 21
+        $date21YearsAgo = now()->subYears(21)->format('Y-m-d');
+        $query->where('users.dob', '<=', $date21YearsAgo);
 
         if ($id) {
             $data = $query->where('users.id', $id)->first();
@@ -515,15 +517,18 @@ class APIController extends Controller
         }
         // $gender = Auth::user()->gender;
         // Add age restriction based on gender
+
         $today = now();
         if (strtolower($gender) == 0) {
-            $minBirthDate = $today->subYears(21);
-            $query->where('users.dob', '<', $minBirthDate);
+            $query->where('users.gender', $gender);
+            // $minBirthDate = $today->subYears(21);
+            // $query->where('users.dob', '<', $minBirthDate);
         } elseif (strtolower($gender) == 1) {
-            $minBirthDate = $today->subYears(18);
-            $query->where('users.dob', '<', $minBirthDate);
+            $query->where('users.gender', $gender);
+            // $minBirthDate = $today->subYears(18);
+            // $query->where('users.dob', '<', $minBirthDate);
         }
-
+        // dd($gender);
         if (!empty($maritulStatus)) {
             $query->where('users.maritl_status', $maritulStatus);
         } else {

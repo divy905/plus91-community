@@ -52,6 +52,8 @@ class User extends Authenticatable
         'gotra_id',
         'sasural_gotra_id',
         'industry',
+        'group_id',
+        'industry'
     ];
 
     /**

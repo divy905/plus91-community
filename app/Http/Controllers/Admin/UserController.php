@@ -38,6 +38,7 @@ class UserController extends Controller
             $users->where('name', 'like', '%' . $search . '%');
             $users->orWhere('email', 'like', '%' . $search . '%');
             $users->orWhere('phone', 'like', '%' . $search . '%');
+            $users->orWhere('member_id', 'like', '%' . $search . '%');
         }
 
         if ($request->group_id) {
