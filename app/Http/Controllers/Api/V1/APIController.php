@@ -1008,4 +1008,14 @@ class APIController extends Controller
             'data' => $data
         ], 200);
     }
+
+    public function headOfFamilyDetails($id){
+        $childUser = User::find($id);
+        $hdOfFamily = User::find($childUser->head_of_family);
+        return response()->json([
+            'result' => true,
+            'message' => 'Data fetched successfully.',
+            'data' => $hdOfFamily
+        ], 200);
+    }
 }
