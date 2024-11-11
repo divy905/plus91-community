@@ -56,5 +56,6 @@ Route::prefix('v1/')->group(function () {
         Route::get('/notification-list', [APIController::class, 'notificationList']);
         Route::post('/pay-to-book-event', [RazorpayController::class, 'payToBookEvent']); 
         Route::post('/update-payment-response', [RazorpayController::class, 'updatePaymentResponse']);
+        Route::get('/is-approved', [UserController::class, 'isApproved']);
     });
 });

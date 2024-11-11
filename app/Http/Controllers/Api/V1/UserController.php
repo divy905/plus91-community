@@ -1001,4 +1001,10 @@ class UserController extends Controller
             ],
         ]);
     }
+
+    public function isApproved()
+    {
+        $user = Auth::user();
+        return response()->json(['status' => $user ? $user->status : 0]);
+    }
 }
