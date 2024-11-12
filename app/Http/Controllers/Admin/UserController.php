@@ -49,6 +49,27 @@ class UserController extends Controller
         $data['users'] = $users;
         return view('admin.user.index', $data);
     }
+   
+    public function deletUpdatedList(Request $request)
+    {
+        $search = isset($request->search) ? $request->search : '';
+        $data['search'] = $search;
+        $users = User::where('is_delete', '1')->orWhere('status', 0)->orderBy('id', 'desc');
+        if (!empty($search)) {
+            $users->where('name', 'like', '%' . $search . '%');
+            $users->orWhere('email', 'like', '%' . $search . '%');
+            $users->orWhere('phone', 'like', '%' . $search . '%');
+            $users->orWhere('member_id', 'like', '%' . $search . '%');
+        }
+
+        if ($request->group_id) {
+            $users->where('group_id', $request->group_id);
+        }
+
+        $users = $users->paginate(10);
+        $data['users'] = $users;
+        return view('admin.user.dlt_updtd_list', $data);
+    }
 
 
 
@@ -356,27 +377,13 @@ class UserController extends Controller
     public function profile(Request $request)
     {
         $id = isset($request->id) ? $request->id : '';
-
         $users = User::where('id', $id)->first();
-
-
         $data['users'] = $users;
-
         $transactions = Transaction::where('user_id', $id)->latest()->get();
-
         $data['transactions'] = $transactions;
-
-
-
         $data['subscription_history'] = '';
-
-
         return view('admin.user.profile', $data);
     }
-
-
-
-
 
     public function credit_update(Request $request)
     {

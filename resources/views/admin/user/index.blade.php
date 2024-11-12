@@ -124,7 +124,8 @@ $groups = DB::table('all_categories')->orderBy('id', 'DESC')->get();
                   <h3 class="page-title">Users</h3>
                 </div>
                  <div class="col-auto text-end float-end ms-auto download-grp">
-                  <a href="{{ route($routeName.'.user.add', ['back_url' => $BackUrl]) }}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                  <a href="{{ route($routeName.'.user.add', ['back_url' => $BackUrl]) }}" title="Add new user" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                  <a href="{{ route($routeName.'.user.delet_updated_list', ['back_url' => $BackUrl]) }}" class="btn btn-warning" title="Deleted & Modfied users list"><i class="fas fa-eye"></i></a>
                 </div>
               </div>
             </div>

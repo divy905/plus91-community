@@ -896,7 +896,7 @@ class UserController extends Controller
         $user = Auth::user();
 
         // Query to fetch members based on head_of_family
-        $query = User::where('head_of_family', $user->id)
+        $query = User::where('head_of_family', $user->id)->where('is_delete', 0)
             ->with('headOfFamily:id,name')
             ->orderBy('id', 'DESC');
 
@@ -947,11 +947,13 @@ class UserController extends Controller
 
     public function memberDelete($id)
     {
-        $member = DB::table('users')->where('id', $id)->delete();
+        // Update the is_delete column to 1 for the specified user
+        $member = DB::table('users')->where('id', $id)->update(['is_delete' => 1]);
+
         if ($member) {
             return response()->json([
                 'result' => true,
-                'message' => 'Members deleted successfully.',
+                'message' => 'Member marked as deleted successfully.',
                 'data' => '',
             ], 200);
         } else {
@@ -962,6 +964,7 @@ class UserController extends Controller
             ], 200);
         }
     }
+
 
     public function updateProfileAvatar(Request $request)
     {

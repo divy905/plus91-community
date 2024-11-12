@@ -178,6 +178,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('update_profile', 'UserController@update_profile')->name('.update_profile');
             Route::match(['get', 'post'], 'delete/{id}', 'UserController@delete')->name('.delete');
             Route::match(['get', 'post'], 'update-group-name', 'UserController@updateGroupName')->name('.updateGroupName');
+            Route::match(['get', 'post'], 'delet-updated-list', 'UserController@deletUpdatedList')->name('.delet_updated_list');
         });
         
         // contact_us
