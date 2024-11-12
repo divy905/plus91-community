@@ -52,10 +52,10 @@ Route::prefix('v1/')->group(function () {
         Route::post('/remove-wishlist', [APIController::class, 'removeWishlist']);
         Route::get('/trustee-list/{id?}', [APIController::class, 'trusteeList']);
         Route::get('/commitee-list/{id?}', [APIController::class, 'commiteeList']);
-        Route::get('/head-of-family-details/{id?}', [APIController::class, 'headOfFamilyDetails']);
         Route::get('/notification-list', [APIController::class, 'notificationList']);
         Route::post('/pay-to-book-event', [RazorpayController::class, 'payToBookEvent']); 
         Route::post('/update-payment-response', [RazorpayController::class, 'updatePaymentResponse']);
+        Route::get('/head-of-family-details/{id?}', [APIController::class, 'headOfFamilyDetails']);
         Route::get('/is-approved', [UserController::class, 'isApproved']);
     });
 });

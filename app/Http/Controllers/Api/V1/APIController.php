@@ -1009,13 +1009,59 @@ class APIController extends Controller
         ], 200);
     }
 
-    public function headOfFamilyDetails($id){
+    public function headOfFamilyDetails($id)
+    {
+        $awsStorageUrl = env('AWS_STORAGE_URL');
         $childUser = User::find($id);
-        $hdOfFamily = User::find($childUser->head_of_family);
+
+        if (!$childUser) {
+            return response()->json([
+                'result' => false,
+                'message' => 'User not found.',
+            ], 404);
+        }
+
+        if (!$childUser->head_of_family) {
+            return response()->json([
+                'result' => false,
+                'message' => 'No head of family assigned for this user.',
+            ], 404);
+        }
+
+        // Query to get head of family details
+        $query = DB::table('users')
+            ->select(
+                'users.*',
+                'wishlist.is_matrimony',
+                DB::raw("CONCAT('$awsStorageUrl/', users.image) AS image"),
+                'gotraNormal.name as gotraName',
+                'sasuralGotra.name as sasuralGotraName',
+                'groups.name as groupName',
+                'nv.name as nativeVillageName',
+                'headOfFamily.name AS headOfFamilyName',
+                DB::raw("IF(users.head_of_family IS NOT NULL, COALESCE(headOfFamily.phone, 'N/A'), 'No Head of Family') AS phone"),
+                DB::raw("IF(users.head_of_family IS NOT NULL, COALESCE(headOfFamily.native_full_address, 'N/A'), 'No Head of Family') AS usersFullAdress")
+            )
+            ->leftJoin('wishlist', 'wishlist.user_added', '=', 'users.id')
+            ->leftJoin('goatra as gotraNormal', 'users.gotra_id', '=', 'gotraNormal.id')
+            ->leftJoin('goatra as sasuralGotra', 'users.sasural_gotra_id', '=', 'sasuralGotra.id')
+            ->leftJoin('all_categories as groups', 'users.group_id', '=', 'groups.id')
+            ->leftJoin('native_villags as nv', 'nv.id', '=', 'users.native_village_id')
+            ->leftJoin('users as headOfFamily', 'users.head_of_family', '=', 'headOfFamily.id')
+            ->where('users.id', $childUser->head_of_family)
+            ->first();
+
+        if (!$query) {
+            return response()->json([
+                'result' => false,
+                'message' => 'Head of family not found.',
+            ], 404);
+        }
+
         return response()->json([
             'result' => true,
             'message' => 'Data fetched successfully.',
-            'data' => $hdOfFamily
+            'data' => $query,
         ], 200);
     }
 }
