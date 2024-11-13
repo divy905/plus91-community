@@ -732,11 +732,11 @@ class UserController extends Controller
 
     public function goatraList()
     {
-        $query = DB::table('goatra')->orderBy('id', 'DESC');
-        $datalist = $query->paginate(10);
-        $data = $datalist->toArray();
-        $data['dataItems'] = $data['data'];
-        unset($data['data']);
+        $data = DB::table('goatra')->orderBy('id', 'DESC')->get();
+        // $datalist = $query->paginate(10);
+        // $data = $datalist->toArray();
+        // $data['dataItems'] = $data['data'];
+        // unset($data['data']);
         return response()->json([
             'result' => true,
             'message' => 'Data fetched successfully.',
