@@ -747,6 +747,7 @@ class UserController extends Controller
 
     public function addMember(Request $request)
     {
+        
         $validator = Validator::make($request->all(), [
             'head_of_family' => 'required',
             'relation_with_head' => 'required|string|max:255',
@@ -758,7 +759,6 @@ class UserController extends Controller
             'group_id' => 'required|integer',
         ]);
 
-        // Check if validation fails
         if ($validator->fails()) {
             return response()->json([
                 'result' => true,
@@ -794,11 +794,11 @@ class UserController extends Controller
         $newMember->group_id = $request->input('group_id');
         $newMember->save();
 
-        Mail::send('email.addmember', ['user' => $request->input('name')], function ($message) use ($request) {
+        // Mail::send('email.addmember', ['user' => $request->input('name')], function ($message) use ($request) {
 
-            $message->to($request->email)
-                ->subject('Member Added To Community');
-        });
+        //     $message->to($request->email)
+        //         ->subject('Member Added To Community');
+        // });
         return response()->json([
             'result' => true,
             'message' => 'Member added successfully.',
