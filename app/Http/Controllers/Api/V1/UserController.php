@@ -332,20 +332,33 @@ class UserController extends Controller
 
     public function profile(Request $request): JsonResponse
     {
-        $data = DB::table('users')
-            ->leftJoin('goatra as g', 'users.gotra_id', '=', 'g.id')
-            ->leftJoin('all_categories as c', 'users.group_id', '=', 'c.id')
-            ->leftJoin('users as hf', 'users.head_of_family', '=', 'hf.id') // Self-join to get head of family name
-            ->where('users.id', Auth::user()->id)
-            ->select(
-                'users.*',
-                DB::raw("CONCAT('/public/uploads/', users.image) AS image"),
-                'g.name as goatraName',
-                'c.name as GroupName',
-                'hf.name as headOfFamilyName', // Retrieve the head of family name
-                DB::raw('CASE WHEN users.name IS NULL THEN NULL ELSE 1 END AS is_valid')
-            )
-            ->first();
+        // $data = DB::table('users')
+        //     ->leftJoin('goatra as g', 'users.gotra_id', '=', 'g.id')
+        //     ->leftJoin('all_categories as c', 'users.group_id', '=', 'c.id')
+        //     ->leftJoin('users as hf', 'users.head_of_family', '=', 'hf.id') 
+        //     ->where('users.id', Auth::user()->id)
+        //     ->select(
+        //         'users.*',
+        //         DB::raw("CONCAT('/public/uploads/', users.image) AS image"),
+        //         'g.name as goatraName',
+        //         'c.name as GroupName',
+        //         'hf.name as headOfFamilyName', 
+        //         DB::raw('CASE WHEN users.name IS NULL THEN NULL ELSE 1 END AS is_valid')
+        //     )
+        //     ->first();
+            $awsStorageUrl = env('AWS_STORAGE_URL');
+            $data = DB::table('users')
+                    ->leftJoin('goatra as g', 'users.gotra_id', '=', 'g.id')
+                    ->leftJoin('all_categories as c', 'users.group_id', '=', 'c.id')
+                    ->leftJoin('native_villags as nv', 'users.native_village_id', '=', 'nv.id')
+                    ->select(
+                        'users.*',
+                        DB::raw("CONCAT('$awsStorageUrl/', users.image) AS image"),
+                        'g.name as goatraName',
+                        'c.name as GroupName',
+                        'nv.name as VillageName'
+                    )->where('users.id', Auth::user()->id)
+                    ->first();
 
         if ($data && $data->is_valid == 1) {
             unset($data->is_valid); // Remove the is_valid field from the final data
