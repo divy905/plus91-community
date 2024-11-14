@@ -750,8 +750,6 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'head_of_family' => 'required',
             'relation_with_head' => 'required|string|max:255',
-            'email' => 'required|unique:users|email',
-            'phone' => 'required|unique:users|digits:10',
             'dob' => 'required|date',
             'native_village_id' => 'required|integer',
             'maritl_status' => 'required|string|max:50',
