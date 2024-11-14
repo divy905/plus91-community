@@ -356,7 +356,8 @@ class UserController extends Controller
                         DB::raw("CONCAT('$awsStorageUrl/', users.image) AS image"),
                         'g.name as goatraName',
                         'c.name as GroupName',
-                        'nv.name as VillageName'
+                        'nv.name as VillageName',
+                        DB::raw('CASE WHEN users.name IS NULL THEN NULL ELSE 1 END AS is_valid')
                     )->where('users.id', Auth::user()->id)
                     ->first();
 
