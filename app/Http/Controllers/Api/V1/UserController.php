@@ -360,7 +360,7 @@ class UserController extends Controller
                         DB::raw('CASE WHEN users.name IS NULL THEN NULL ELSE 1 END AS is_valid')
                     )->where('users.id', Auth::user()->id)
                     ->first();
-
+//comment
         if ($data && $data->is_valid == 1) {
             unset($data->is_valid); // Remove the is_valid field from the final data
             $response = [
